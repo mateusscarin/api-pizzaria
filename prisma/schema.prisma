@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id            String    @id @default(uuid())
+  nome          String
+  email         String
+  senha         String
+  criado_em     DateTime? @default(now())
+  modificado_em DateTime? @default(now())
+
+  @@map("usuario")
+}
+
+model Categoria {
+  id            String    @id @default(uuid())
+  nome          String
+  criado_em     DateTime? @default(now())
+  atualizado_em DateTime? @default(now())
+  produtos      Produto[]
+
+  @@map("categoria")
+}
+
+model Produto {
+  id                   String    @id @default(uuid())
+  nome                 String
+  preco                String
+  descricao            String
+  banner               String
+  criado_em            DateTime? @default(now())
+  atualizado_em        DateTime  @default(now())
+  fk_produto_categoria Categoria @relation(fields: [id_categoria], references: [id])
+  id_categoria         String
+  items                Item[]
+
+  @@map("produto")
+}
+
+model Pedido {
+  id            String    @id @default(uuid())
+  mesa          Int
+  status        Boolean   @default(false)
+  rascunho      Boolean   @default(true)
+  nome          String?
+  criado_em     DateTime? @default(now())
+  atualizado_em DateTime  @default(now())
+  items         Item[]
+
+  @@map("pedido")
+}
+
+model Item {
+  id              String    @id @default(uuid())
+  quantidade      Int
+  criado_em       DateTime? @default(now())
+  atualizado_em   DateTime  @default(now())
+  id_pedido       String
+  id_produto      String
+  fk_item_pedido  Pedido    @relation(fields: [id_pedido], references: [id])
+  fk_item_produto Produto   @relation(fields: [id_produto], references: [id])
+
+  @@map("item")
+}
