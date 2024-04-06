@@ -15,4 +15,3 @@ class CreateUserController {
 }
 
 export { CreateUserController };
-
