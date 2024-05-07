@@ -6,3 +6,7 @@ export interface OrderRequest {
 export interface OrderDeleteRequest {
     id_pedido: string;
 }
+
+export interface SendOrderRequest {
+    order_id: string;
+}
