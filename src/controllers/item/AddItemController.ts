@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ItemRequest } from "../../models/item-request.models";
-import { AddItemService } from "../../services/order/AddItemService";
+import { AddItemService } from "../../services/item/AddItemService";
 
 class AddItemController {
     async handle(req: Request, res: Response) {
