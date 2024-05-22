@@ -1,4 +1,16 @@
 -- CreateTable
+CREATE TABLE "usuario" (
+    "id" TEXT NOT NULL,
+    "nome" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "senha" TEXT NOT NULL,
+    "criado_em" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "modificado_em" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "usuario_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "categoria" (
     "id" TEXT NOT NULL,
     "nome" TEXT NOT NULL,
@@ -12,7 +24,7 @@ CREATE TABLE "categoria" (
 CREATE TABLE "produto" (
     "id" TEXT NOT NULL,
     "nome" TEXT NOT NULL,
-    "preco" TEXT NOT NULL,
+    "preco" DECIMAL(65,30) NOT NULL,
     "descricao" TEXT NOT NULL,
     "banner" TEXT NOT NULL,
     "criado_em" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
@@ -36,7 +48,7 @@ CREATE TABLE "pedido" (
 );
 
 -- CreateTable
-CREATE TABLE "Item" (
+CREATE TABLE "item" (
     "id" TEXT NOT NULL,
     "quantidade" INTEGER NOT NULL,
     "criado_em" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
@@ -44,14 +56,14 @@ CREATE TABLE "Item" (
     "id_pedido" TEXT NOT NULL,
     "id_produto" TEXT NOT NULL,
 
-    CONSTRAINT "Item_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "item_pkey" PRIMARY KEY ("id")
 );
 
 -- AddForeignKey
 ALTER TABLE "produto" ADD CONSTRAINT "produto_id_categoria_fkey" FOREIGN KEY ("id_categoria") REFERENCES "categoria"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Item" ADD CONSTRAINT "Item_id_pedido_fkey" FOREIGN KEY ("id_pedido") REFERENCES "pedido"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "item" ADD CONSTRAINT "item_id_pedido_fkey" FOREIGN KEY ("id_pedido") REFERENCES "pedido"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Item" ADD CONSTRAINT "Item_id_produto_fkey" FOREIGN KEY ("id_produto") REFERENCES "produto"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "item" ADD CONSTRAINT "item_id_produto_fkey" FOREIGN KEY ("id_produto") REFERENCES "produto"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
