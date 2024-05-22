@@ -10,3 +10,7 @@ export interface OrderDeleteRequest {
 export interface SendOrderRequest {
     order_id: string;
 }
+
+export interface OpenOrdersRequest {
+    date_request: Date;
+}
